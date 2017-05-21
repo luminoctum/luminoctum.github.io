@@ -1,1 +1,186 @@
-../www/index.html
+<!DOCTYPE html>
+<html class="no-js" lang="">
+	<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cheng Li</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!--><link rel="stylesheet" href="css/bootstrap.css"><!-->
+    <link rel="stylesheet" href="css/main.css">
+	</head>
+	<body data-spy="scroll" data-target="#navbar-collapse" data-offset="130" ng-app="app" ng-controller="ctrl">
+		<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <span class="brand">Cheng Li</span>
+          <div class="nav-collapse" id="navbar-collapse">
+            <ul class="nav pull-right">
+              <li><a href="#about">About</a></li>
+              <li><a href="#cv">cv</a></li>
+              <li><a href="#research">Research</a></li>
+              <li><a href="#code">code</a></li>
+              <li><a href="#teaching">Teaching</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div id="about" class="row-fluid">
+        <div class="span4">
+          <div id="profile-container">
+            <img src="img/head_dv.jpg" alt="Cheng Li's profile picture" id="profile">
+          </div>
+        </div>
+        <div class="span8">
+          <p>I am a <a href="https://npp.usra.edu/fellows/current/" target="_blank">NASA
+          Postdoctoral Program fellow</a> at <a href="https://www.jpl.nasa.gov/">Jet Propulsion Laboratory</a> working on the <a href="https://www.missionjuno.swri.edu/">Juno mission</a>. I received my doctoral degree in <a href="http://www.gps.caltech.edu/">Planetary Science</a> at <a href="http://www.caltech.edu/">California Institute of Technology</a>. I'm generally interested in all kinds of physics related to fluid motions. My Ph.D. thesis is about moist convection and atmospheric dynamics on giant planets.</p>
+          <p>I love outdoor activities such as hiking and cycling. I enjoy the sunshine in the Southern California.</p>
+          </p>
+        </div>
+      </div>
+      <div id="cv">
+        <a href="doc/clicv.pdf" class="pull-right button button-along-title"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download CV</a>
+        <h2>Education</h2>
+        <p><b>California Institute of Technology</b>, Sep 2011 – May 2016<img src="img/caltech.png" alt="caltech" class="logo"></p>
+        <p class="detail">Ph.D., Geological and Planetary Science<br>
+        minor in Evironmental Science and Engineering<br>
+        Advisor: <a href="http://www.gps.caltech.edu/content/andrew-p-ingersoll" target="_blank">Andrew Ingersoll</a></p>
+        <p><b>Peking University</b>, Sep 2007 – Jun 2011<img src="img/pku.png" alt="peking university" class="logo"></p>
+        <p class="detail">B.Sc., School of Physics<br>
+        Advisor: <a href="http://www.atmos.pku.edu.cn/yhu/" target="_blank">Yongyun Hu</a></p>
+      </div>
+      <div id="research">
+        <button class="pull-right button button-along-title button-gray" ng-click="toggleSummary()" ng-show="summaryDisplay"><span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> Read less</button>
+        <button class="pull-right button button-along-title button-black" ng-click="toggleSummary()" ng-hide="summaryDisplay"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Read more</button>
+        <h2>Research</h2>
+        <p>I learn a subject by doing research in its field. In the following, you will find projects across multiple disciplines including fluid dynamics, photochemistry, atmospheric radiation and spectral inversion. These topics seem farraginous at a first glance, but all of them are germane to the understanding of atmospheric circulation on a planet, which is the theme of my research.</p>
+        <p></p>
+        <div ng-repeat="(k, w) in research">
+          <p><img src="{{w.image}}" alt="" class="logo2"><b>[{{k}}] {{w.title}}</b></p>
+          <p class="detail"><span ng-show="summaryDisplay">{{w.summary}}<br></span></p>
+          <div ng-show="w.news && summaryDisplay">
+            <p class="detail">Read more news articles at:
+            <span ng-repeat="n in w.news"><a href="{{n.url}}">[{{n.name}}] </a></span>
+            </p>
+          </div>
+          <span ng-show="!w.accepted" class="dates">
+            <p>{{w.journal.name}}</p>
+          </span>
+          <span ng-show="w.accepted && !w.published" class="dates">
+            <p>{{w.journal.name}}, <a href="{{w.journal.url}}" target="_blank" class="has_bottom_tooltip">doi:{{w.journal.doi}}</a></p>
+          </span>
+          <span ng-show="w.published" class="dates">
+            <p>{{w.journal.name}}, <a href="{{w.journal.url}}" target="_blank" class="has_bottom_tooltip">doi:{{w.journal.doi}}</a>, {{w.journal.etc}}</p>
+          </span>
+          <span class="dates">
+            <p>
+            <span ng-show="!w.submitted">&#8729; <i>to be submitted</i></span>
+            <span ng-show="w.submitted">&#8729; submitted on {{w.submitted | date}}</span>
+            <span ng-show="w.accepted && !w.published">&#8729; accepted on {{w.accepted | date}}</span>
+            <span ng-show="w.published">&#8729; published on {{w.published | date}}</span>
+            </p>
+          </span>
+        </div>
+      </div>
+      <div id="code">
+        <button class="pull-right button button-along-title button-gray" ng-click="toggleEquation()" ng-show="EquationDisplay"><span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> Read less</button>
+        <button class="pull-right button button-along-title button-black" ng-click="toggleEquation()" ng-hide="EquationDisplay"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Read more</button>
+        <!--<button class="pull-right button button-along-title button-gray" ng-click="toggleMovie()" ng-show="MovieDisplay"><span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> hide movie</button>
+        <button class="pull-right button button-along-title button-black" ng-click="toggleMovie()" ng-hide="MovieDisplay"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> show movie</button>-->
+        <h2>Code</h2>
+        <p>I develop numerical models, especially dynamic cores, to aid my research. Here are some snippets of my numerical arsenals.</p>
+        <div class="detail">
+          <ul>
+            <li><p><b>Linear Rossby wave propagation</b></p></li>
+            <blockquote>
+            <p><a href="https://en.wikipedia.org/wiki/Galileo_Galilei">Galileo</a> (1610?): "I had less difficulty in the discovery of the motions of the heavenly bodies, in spite of their astonishing distances, than in the investigation of the movement of water before my very eyes."</p>
+            </blockquote>
+            <p>Perhaps, the most fundamental mechanism underlying the complicated motion
+            of fluids is linear waves.
+            <span ng-show="EquationDisplay">Using the <a href="https://en.wikipedia.org/wiki/Rossby_radius_of_deformation">deformation radius</a> as the length scale and the <a href="http://glossary.ametsoc.org/wiki/Coriolis_parameter">Coriolis parameter</a> as the time scale, the non-dimensionalized <a href="https://en.wikipedia.org/wiki/Quasi-geostrophic_equations">quasi-geostrophic potential vorticity (QGPV) equation</a> becomes:
+              $$\frac{\partial}{\partial t}(\nabla^2\psi-\psi)+J(\psi,\nabla^2\psi)+\beta\frac{\partial\psi}{\partial x}=0$$
+            The second term $J(\psi,\nabla^2\psi)=\frac{\partial\psi}{\partial x}\frac{\partial\nabla^2\psi}{\partial y}-\frac{\partial\psi}{\partial y}\frac{\partial\nabla^2\psi}{\partial x}$ is nonlinear. If only small amplitude oscillations are considered, the equation reduces to:
+              $$\frac{\partial}{\partial t}(\nabla^2\psi-\psi)+\beta\frac{\partial\psi}{\partial x}=0$$
+            This equation is linear and can be solved analytically or numerically. This solution is called a <a href="https://en.wikipedia.org/wiki/Rossby_wave">Rossby wave</a>.
+            </span>
+            The following animation shows the wave triggered by a mass bump at the water surface.
+            </p>
+            <video controls width = "100%" poster="img/linear_qg.png">
+              <!--<source src="img/linear_qg.png" type="video/png">-->
+              <source src="mov/linear_qg.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+            <li><p><b>Motion of a nonlinear vortex on a beta plan</b></p></li>
+            <blockquote>
+            <p><a href="https://en.wikipedia.org/wiki/Leonardo_da_Vinci">Leonardo</a> (1500?): "... the small eddies are almost numberless, and large things are rotated by large eddies and not by small ones, and small things are turned by both small eddies and large ..."</p>
+            </blockquote>
+            <p>Linear waves do not transport water mass. The water mass merely oscillates up and down at its original position. But, a nonlinear vortex carries water mass with it when it translates.
+            <span ng-show="EquationDisplay">A specially numerical treatment is needed to
+              integrate the nonlinear QGPV equation. Basically, there are 4 ways to
+              numerically calculate the nonlinear term $J(\psi,\nabla\psi)$ according to
+              the <a
+              href="http://www.sciencedirect.com/science/article/pii/0021999166900155">seminal
+            paper</a> by <a
+          href="https://ja.wikipedia.org/wiki/%E8%8D%92%E5%B7%9D%E6%98%AD%E5%A4%AB">Akio
+        Arakawa</a>. They are named $J_{i,j}^{++}, J_{i,j}^{+\times}, J_{i,j}^{\times+},
+      J_{i,j}^{\times\times}$, as illustrated below. <img width="100%" src="img/arakawa_jacobian.svg">
+            Only one combination conserves both kinetic energy and enstrophy (square vorticity), which is called "Arakawa Jacobian":
+              $$J_{i,j}=\frac{1}{3}(J_{i,j}^{++}+J_{i,j}^{+\times}+J_{i,j}^{\times+})$$
+            </span>
+            The following animation shows the tracer field carried away by the nonlinear vortex.
+            </p>
+            <video controls width = "100%" poster="img/single-vortex.png">
+              <!--<source src="img/single-vortex.png" type="video/png">-->
+              <source src="mov/single-vortex.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+            <!--<li><p><b>Barotropic instability</b></p></li>
+            <video controls width = "100%" ng-show="MovieDisplay">
+              <source src="mov/barotropic_instability.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>-->
+          </ul>
+        </div>
+      </div>
+      <div id="teaching">
+        <h2>Teaching</h2>
+        <p><b>California Institute of Technology</b>, Sep 2011 - Dec 2015</b>
+        <p ng-repeat="t in teaching" class="detail">
+          <span>{{t.semester}}</span> - {{t.code}}, {{t.name}} ({{t.role}})
+        </p>
+      </div>
+      <div id="contact">
+        <h2>Contact</h2>
+        <address>
+          <p>Division of Geological and Planetary Science<br>
+          South Mudd, MC:150-21<br>
+          Email: cli [at] gps [dot] caltech [dot] edu</p>
+        </address>
+      </div>
+    </div>
+    <div class="footer">
+      <h6>Last Updated:
+        <script language="Javascript">document.write(document.lastModified)</script>
+        <span> | </span>Template designed by <a href="http://math.cmu.edu/~zilinj/"><b>Roy</b></a>
+      </h6>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script>window.angular || document.write('<script src="js/vendor/angular.min.js"><\/script>')</script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/scrollTo.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	</body>
+</html>
